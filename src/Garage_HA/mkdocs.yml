@@ -1,0 +1,30 @@
+site_name: IBC-esp8266
+site_dir: "\\\\raspidbsrv\\web\\html\\doku\\ibc-esp8266"
+nav:
+  - Home: index.md
+  - NodeMCU: nodemcu.md
+  - PlatformIO: platformio.md
+  - Beschreibung: description.md
+  - Verdrahtung: wiring.md
+  - About: about.md
+  - Hilfe: help.md
+theme: 
+    name: material
+    language: de
+    font: false
+markdown_extensions:
+  - pymdownx.extra
+  - admonition
+  - pymdownx.details
+  - pymdownx.arithmatex
+  - pymdownx.tilde
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - markdown.extensions.codehilite:
+      guess_lang: false
+      linenums: true
+
+extra_javascript:
+    - js/extra.js
+    # - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
+    - js/MathJax.min.js

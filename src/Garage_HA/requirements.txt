@@ -1,0 +1,9 @@
+minimalmodbus
+argparse
+ConfigParser
+asyncio
+websockets
+mkdocs
+mkdocs-material
+pymdown-extensions
+Pygments
