@@ -14,24 +14,19 @@
 #include "PubSubClient.h"
 
 #include <Wire.h>
-#include <LiquidCrystal_I2C.h>
-
-#define COLUMS 20
-#define ROWS   4
-LiquidCrystal_I2C lcd(PCF8574_ADDR_A21_A11_A01, 4, 5, 6, 16, 11, 12, 13, 14, POSITIVE);
 
 #define CLEAR_CONFIG false
-#define roottopic "rainibc"
+#define roottopic "GarageHA"
 #define FWVERSION "V1.0.0"
 
 bool shouldSaveConfig  = false;
 const int CHIP_ID = ESP.getChipId();
 
 //Output
-const int REL_PUMP_OFF = D5; //GPIO14
+const int REL_OPEN_DOOR = D5; //GPIO14
 
-const int SW_MAX = D6; // GPIO12
-const int SW_PUMP_OFF = D7; //GPIO13
+const int SW_DOOR = D6; // GPIO12
+const int SW_RESERVED = D7; //GPIO13
 
 // I2C
 const int I2C_CLK = D1; //GPIO05
@@ -51,22 +46,21 @@ char mqtt_user[40] = "user";
 char mqtt_pass[40] = "password";
 
 char mqtt_root_topic[34] = roottopic;
-char mqtt_SwMax_topic[44];
-char mqtt_SW_PUMP_OFF_topic[44];
-char mqtt_REL_PUMP_OFF_topic[44];
-char mqtt_Level_topic[44];
+char mqtt_SwDoor_topic[44];
+char mqtt_SW_Reserved_topic[44];
+char mqtt_REL_Door_topic[44];
 char mqtt_distance_topic[44];
+char mqtt_SUB_REL_Door_topic[44];
 
-int val_swmax = LOW;
-int val_swpumpoff = LOW;
-int val_rel_pump_off = LOW;
-int val_level = 0;
+int val_swdoor = LOW;
+int val_swreserved = LOW;
+int val_rel_open_door = LOW;
 int val_distance = 0;
 int distliter = 0;
 
-int last_val_swmax = HIGH +1; //Force sending initial status 
-int last_val_swpumpoff = HIGH +1; //Force sending initial status 
-int last_val_rel_pump_off = HIGH +1; //Force sending initial status 
+int last_val_swdoor = HIGH +1; //Force sending initial status 
+int last_val_swreserved = HIGH +1; //Force sending initial status 
+int last_val_rel_door = HIGH +1; //Force sending initial status 
 int last_val_level = -1;  //Force sending initial status 
 
 int last_val_distance = -1;
@@ -82,12 +76,42 @@ void saveConfigCallback () {
   shouldSaveConfig  = true;
 }
 
-void setup() {
-  pinMode(SW_PUMP_OFF, INPUT);
-  pinMode(SW_MAX, INPUT);
+void SubCallback(char* topic, byte* message, unsigned int length) {
+  Serial.print("Message arrived on topic: ");
+  Serial.print(topic);
+  Serial.print(". Message: ");
+  String messageTemp;
   
-  pinMode(REL_PUMP_OFF, OUTPUT);
-  digitalWrite(REL_PUMP_OFF,0);
+  for (unsigned int i = 0; i < length; i++) {
+    Serial.print((char)message[i]);
+    messageTemp += (char)message[i];
+  }
+  Serial.println();
+
+  // Feel free to add more if statements to control more GPIOs with MQTT
+
+  // If a message is received on the topic esp32/output, you check if the message is either "on" or "off". 
+  // Changes the output state according to the message
+  if (String(topic) == mqtt_SUB_REL_Door_topic) { //"GarageHA/14087507/reldoorout"){ 
+    Serial.print("Changing output to ");
+    if(messageTemp == "HIGH"){
+      Serial.println("Rel HIGH");
+      digitalWrite(REL_OPEN_DOOR, HIGH);
+    }
+    else if(messageTemp == "LOW"){
+      Serial.println("Rel LOW");
+      digitalWrite(REL_OPEN_DOOR, LOW);
+    }
+  }
+}
+
+
+void setup() {
+  pinMode(SW_RESERVED, INPUT);
+  pinMode(SW_DOOR, INPUT);
+  
+  pinMode(REL_OPEN_DOOR, OUTPUT);
+  digitalWrite(REL_OPEN_DOOR,0);
   
   pinMode(TRIGGER, OUTPUT); // Sets the trigPin as an Output
   pinMode(ECHO, INPUT); // Sets the echoPin as an Input
@@ -100,37 +124,18 @@ void setup() {
   Serial.print("Firmware Version: ");
   Serial.println(FWVERSION);
 
-  //LCD Setup
-  if (lcd.begin(COLUMS, ROWS, LCD_5x8DOTS, D2, D1) != 1) //colums - 16, rows - 2, pixels - 5x8, SDA - D2, SCL - D1
-  {
-    Serial.println(F("PCF8574 is not connected or lcd pins declaration is wrong. Only pins numbers: 4,5,6,16,11,12,13,14 are legal."));
-    delay(5000);
-  }
-
-  lcd.print(F("PCF8574 is OK...")); //(F()) saves string to flash & keeps dynamic memory free
-  delay(2000);
-
-  lcd.clear();
-
-  /* prints static text */
-  lcd.setCursor(0, 0);            //set 1-st colum & 2-nd row, 1-st colum & row started at zero
-  lcd.print(F("Rain IBC "));
-  // lcd.print(FWVERSION);
-  lcd.print(F(" ("));
-  lcd.print(CHIP_ID);
-  lcd.print(F(")"));
-  lcd.setCursor(0, 1);            //set 1-st colum & 3-rd row, 1-st colum & row started at zero
-
   strcat(mqtt_root_topic, "/");
   strcat(mqtt_root_topic,  String(CHIP_ID).c_str());
 
-  snprintf(mqtt_SwMax_topic,sizeof(mqtt_SwMax_topic),"%s/%s",mqtt_root_topic,"swmax");
-  snprintf(mqtt_SW_PUMP_OFF_topic,sizeof(mqtt_SW_PUMP_OFF_topic),"%s/%s",mqtt_root_topic, "swpump");
-  snprintf(mqtt_REL_PUMP_OFF_topic,sizeof(mqtt_REL_PUMP_OFF_topic),"%s/%s",mqtt_root_topic, "relpump");
-  snprintf(mqtt_Level_topic,sizeof(mqtt_Level_topic),"%s/%s",mqtt_root_topic, "level");
+  snprintf(mqtt_SwDoor_topic,sizeof(mqtt_SwDoor_topic),"%s/%s",mqtt_root_topic,"swdoor");
+  snprintf(mqtt_SW_Reserved_topic,sizeof(mqtt_SW_Reserved_topic),"%s/%s",mqtt_root_topic, "swreserved");
+  snprintf(mqtt_REL_Door_topic,sizeof(mqtt_REL_Door_topic),"%s/%s",mqtt_root_topic, "reldoor");
   snprintf(mqtt_distance_topic,sizeof(mqtt_distance_topic),"%s/%s",mqtt_root_topic, "dist");
-
-
+  
+  snprintf(mqtt_SUB_REL_Door_topic,sizeof(mqtt_REL_Door_topic),"%s/%s",mqtt_root_topic, "reldoorout");
+  Serial.print("Subscribing to Topic:");
+  Serial.println(mqtt_SUB_REL_Door_topic);
+  
   //clean FS, for testing
   if(CLEAR_CONFIG) LittleFS.format();
 
@@ -210,8 +215,7 @@ void setup() {
     delay(5000);
   }
   Serial.println("connected");
-  lcd.print(F("connected"));
-
+  
   strcpy(mqtt_server, custom_mqtt_server.getValue());
   strcpy(mqtt_port, custom_mqtt_port.getValue());
   strcpy(mqtt_user, custom_mqtt_user.getValue());
@@ -241,31 +245,28 @@ void setup() {
   Serial.println("assigned ip");
   Serial.println(WiFi.localIP());
   client.setServer(mqtt_server, 1883);
+  client.setCallback(SubCallback);
 
   // No authentication by default
   ArduinoOTA.setPassword((const char *)"rovema");
 
   ArduinoOTA.onStart([]() {
-    lcd.setCursor(0, 3);            //set 1-st colum & 2-nd row, 1-st colum & row started at zero
-    lcd.print(F("Start OTA"));
+    Serial.print(F("Start OTA"));
   });
   ArduinoOTA.onEnd([]() {
-    lcd.setCursor(0, 3);            //set 1-st colum & 2-nd row, 1-st colum & row started at zero
-    lcd.print(F("End OTA"));
+    Serial.print(F("End OTA"));
   });
   ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
-    lcd.setCursor(0, 3);            //set 1-st colum & 2-nd row, 1-st colum & row started at zero
-    lcd.printf("OTA-Progress: %u%%\r", (progress / (total / 100)));
+    Serial.printf("OTA-Progress: %u%%\r", (progress / (total / 100)));
 
   });
   ArduinoOTA.onError([](ota_error_t error) {
-    lcd.setCursor(0, 3);            //set 1-st colum & 2-nd row, 1-st colum & row started at zero
-    lcd.printf("Error[%u]: ", error);
-    if (error == OTA_AUTH_ERROR) lcd.println("Auth Failed");
-    else if (error == OTA_BEGIN_ERROR) lcd.println("Begin Failed");
-    else if (error == OTA_CONNECT_ERROR) lcd.println("Connect Failed");
-    else if (error == OTA_RECEIVE_ERROR) lcd.println("Receive Failed");
-    else if (error == OTA_END_ERROR) lcd.println("End Failed");
+    Serial.printf("Error[%u]: ", error);
+    if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed");
+    else if (error == OTA_BEGIN_ERROR) Serial.println("Begin Failed");
+    else if (error == OTA_CONNECT_ERROR) Serial.println("Connect Failed");
+    else if (error == OTA_RECEIVE_ERROR) Serial.println("Receive Failed");
+    else if (error == OTA_END_ERROR) Serial.println("End Failed");
   });
 
     // start the OTEthernet library with internal (flash) based storage
@@ -277,6 +278,9 @@ void reconnect() {
     Serial.println("trying to connect to mqtt...");
     if (client.connect("ESP8266Client")) {
       Serial.println("connected");
+
+      client.subscribe(mqtt_SUB_REL_Door_topic);
+
     } else {
       Serial.print("connecting to mqtt broker failed, rc: ");
       Serial.println(client.state());
@@ -294,16 +298,9 @@ void loop() {
   client.loop();
 
   //Read Inputs
-  val_swmax = digitalRead(SW_MAX);;
-  val_swpumpoff = digitalRead(SW_PUMP_OFF);;
+  val_swdoor = digitalRead(SW_DOOR);;
+  val_swreserved = digitalRead(SW_RESERVED);;
   
-  float tmp_level = 0.0;
-  for(int i=0; i<50;i++){
-    tmp_level += (float)analogRead(A0);
-  }
-  val_level = (int)(tmp_level / 50.0);
-  val_level = map(val_level,1020,10,0,1000);
-
   // Clears the trigPin
   digitalWrite(TRIGGER, LOW);
   delayMicroseconds(2);
@@ -331,39 +328,32 @@ void loop() {
   if(distliter > 1000) distliter = 1000;
 
   //Send Values
-  Serial.print("val_swmax: ");
-  Serial.println(val_swmax);
-  if((val_swmax != last_val_swmax) || (counter >= MaxSendInterval)){
-    if(val_swmax == HIGH) client.publish(mqtt_SwMax_topic, "HIGH");
-    else client.publish(mqtt_SwMax_topic, "LOW");
-    last_val_swmax = val_swmax;
+  Serial.print("val_swdoor: ");
+  Serial.println(val_swdoor);
+  if((val_swdoor != last_val_swdoor) || (counter >= MaxSendInterval)){
+    if(val_swdoor == HIGH) client.publish(mqtt_SwDoor_topic, "HIGH");
+    else client.publish(mqtt_SwDoor_topic, "LOW");
+    last_val_swdoor = val_swdoor;
   }
 
-  if((val_swpumpoff != last_val_swpumpoff) || (counter >= MaxSendInterval)){
-    if(val_swpumpoff == HIGH) client.publish(mqtt_SW_PUMP_OFF_topic, "HIGH");
-    else client.publish(mqtt_SW_PUMP_OFF_topic, "LOW");
-    last_val_swpumpoff = val_swpumpoff;
+  if((val_swreserved != last_val_swreserved) || (counter >= MaxSendInterval)){
+    if(val_swreserved == HIGH) client.publish(mqtt_SW_Reserved_topic, "HIGH");
+    else client.publish(mqtt_SW_Reserved_topic, "LOW");
+    last_val_swreserved = val_swreserved;
   }
 
   //Switch Pump Relais off, if switch is turned High
-  val_rel_pump_off = !val_swpumpoff;
+  val_rel_open_door = digitalRead(REL_OPEN_DOOR);
 
-  if((val_level != last_val_level) || (counter >= MaxSendInterval)){
-    snprintf(tmp,sizeof(tmp),"%d",val_level);
-    client.publish(mqtt_Level_topic, tmp);
-    last_val_level = val_level;
+  if((val_rel_open_door != last_val_rel_door) || (counter >= MaxSendInterval)){
+    if(val_rel_open_door == HIGH) client.publish(mqtt_REL_Door_topic, "HIGH");
+    else client.publish(mqtt_REL_Door_topic, "LOW");
+
+    digitalWrite(REL_OPEN_DOOR,val_rel_open_door);
+
+    last_val_rel_door = val_rel_open_door;
   }
-  Serial.print("Level Value: ");Serial.println(val_level);
-
-  if((val_rel_pump_off != last_val_rel_pump_off) || (counter >= MaxSendInterval)){
-    if(val_rel_pump_off == HIGH) client.publish(mqtt_REL_PUMP_OFF_topic, "HIGH");
-    else client.publish(mqtt_REL_PUMP_OFF_topic, "LOW");
-
-    digitalWrite(REL_PUMP_OFF,val_rel_pump_off);
-
-    last_val_rel_pump_off = val_rel_pump_off;
-  }
-  Serial.print("Relais_Pump_Off: ");Serial.println(val_rel_pump_off);
+  Serial.print("Relais_Door_Open: ");Serial.println(val_rel_open_door);
   
   if((val_distance != last_val_distance) || (counter >= MaxSendInterval)){
     snprintf(tmp,sizeof(tmp),"%d",val_distance);
@@ -372,20 +362,6 @@ void loop() {
     last_val_distance = val_distance;
   }
   Serial.print("Distance: ");Serial.println(val_distance);
-  
-  //LCD routines
-
-  lcd.setCursor(0, 1);            //set 1-st colum & 2-nd row, 1-st colum & row started at zero
-  snprintf(tmp,sizeof(tmp), "Level: %4d Liter   ",val_level);
-  lcd.print(tmp);
-
-  lcd.setCursor(0, 2);            //set 1-st colum & 3-rd row, 1-st colum & row started at zero
-  snprintf(tmp,sizeof(tmp), "Max=%d Auto=%d, K2=%d ",val_swmax, val_swpumpoff, val_rel_pump_off);
-  lcd.print(tmp);
-
-  lcd.setCursor(0, 3);            //set 1-st colum & 3-rd row, 1-st colum & row started at zero
-  snprintf(tmp,sizeof(tmp), "Dist=%d Liter=%d      ",val_distance, distliter);
-  lcd.print(tmp);
   
   counter++;
   if(counter >= (MaxSendInterval + 1)){
