@@ -34,7 +34,7 @@ const int I2C_DAT = D2; //GPIO04
 
 //Ultrasonic distance
 const int TRIGGER = D4; //GPIO02 (High on Boot, boot failture if pulled LOW)
-const int ECHO = D0; //GPIO00 (boot failure if pulled LOW)
+const int ECHO = D0; //GPIO16 (High on Boot)
 
 long duration;
 int distance;
