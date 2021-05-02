@@ -80,17 +80,6 @@ F 3 "~" H 6100 7400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x10 J4
-U 1 1 5F26FC1D
-P 10050 3750
-F 0 "J4" H 10000 4350 50  0000 L CNN
-F 1 "Conn_01x10" H 10000 4250 50  0000 L CNN
-F 2 "Connector_Phoenix_MSTB:PhoenixContact_MSTBA_2,5_10-G-5,08_1x10_P5.08mm_Horizontal" H 10050 3750 50  0001 C CNN
-F 3 "~" H 10050 3750 50  0001 C CNN
-	1    10050 3750
-	1    0    0    -1  
-$EndComp
-$Comp
 L Connector_Generic:Conn_01x06 J2
 U 1 1 5F272DC4
 P 10000 2350
@@ -107,25 +96,19 @@ Wire Wire Line
 	9800 2550 9400 2550
 Wire Wire Line
 	9800 2650 9400 2650
-Wire Wire Line
-	9450 3950 9850 3950
-Wire Wire Line
-	9500 4250 9850 4250
-Text Label 9500 3350 0    50   ~ 0
+Text Label 9500 3550 0    50   ~ 0
 GND
 $Comp
 L power:GND #PWR02
 U 1 1 5F2781D4
-P 8350 3350
-F 0 "#PWR02" H 8350 3100 50  0001 C CNN
-F 1 "GND" H 8355 3177 50  0000 C CNN
-F 2 "" H 8350 3350 50  0001 C CNN
-F 3 "" H 8350 3350 50  0001 C CNN
-	1    8350 3350
-	0    1    1    0   
+P 9400 3550
+F 0 "#PWR02" H 9400 3300 50  0001 C CNN
+F 1 "GND" H 9405 3377 50  0000 C CNN
+F 2 "" H 9400 3550 50  0001 C CNN
+F 3 "" H 9400 3550 50  0001 C CNN
+	1    9400 3550
+	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	8350 3350 8650 3350
 Text Label 9500 3650 0    50   ~ 0
 GPIO12
 Text Label 9400 2450 0    50   ~ 0
@@ -4298,57 +4281,12 @@ Wire Wire Line
 Wire Wire Line
 	7250 2150 7250 2100
 Connection ~ 7250 2150
-$Comp
-L Device:Varistor RV1
-U 1 1 5F3952B4
-P 8650 3150
-F 0 "RV1" H 8753 3196 50  0000 L CNN
-F 1 "24V" H 8753 3105 50  0000 L CNN
-F 2 "Varistor:RV_Disc_D7mm_W3.4mm_P5mm" V 8580 3150 50  0001 C CNN
-F 3 "~" H 8650 3150 50  0001 C CNN
-	1    8650 3150
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	7550 2300 7550 2250
 Wire Wire Line
 	7650 2900 7650 2950
 Text Label 7650 3250 1    50   ~ 0
 K1-11
-$Comp
-L Device:Varistor RV3
-U 1 1 5F3C2F6A
-P 9350 3150
-F 0 "RV3" H 9453 3196 50  0000 L CNN
-F 1 "24V" H 9453 3105 50  0000 L CNN
-F 2 "Varistor:RV_Disc_D7mm_W3.4mm_P5mm" V 9280 3150 50  0001 C CNN
-F 3 "~" H 9350 3150 50  0001 C CNN
-	1    9350 3150
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9350 3300 9350 3350
-Connection ~ 9350 3350
-Wire Wire Line
-	9350 3350 9850 3350
-Wire Wire Line
-	9350 3000 9450 3000
-Wire Wire Line
-	9450 3000 9450 3550
-Connection ~ 9450 3550
-Wire Wire Line
-	9450 3550 9850 3550
-Wire Wire Line
-	8350 3550 9450 3550
-Wire Wire Line
-	8650 3350 8650 3300
-Connection ~ 8650 3350
-Wire Wire Line
-	8650 3000 8750 3000
-Wire Wire Line
-	8750 3000 8750 3650
-Wire Wire Line
-	8750 3650 9850 3650
 Text Label 9400 2650 0    50   ~ 0
 K1-11
 Text Label 7550 1900 3    50   ~ 0
@@ -4534,24 +4472,6 @@ F 3 "" H 9550 2150 50  0001 C CNN
 	1    9550 2150
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:+5V #PWR0107
-U 1 1 5F584395
-P 8350 3550
-F 0 "#PWR0107" H 8350 3400 50  0001 C CNN
-F 1 "+5V" V 8365 3678 50  0000 L CNN
-F 2 "" H 8350 3550 50  0001 C CNN
-F 3 "" H 8350 3550 50  0001 C CNN
-	1    8350 3550
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	8750 3650 8300 3650
-Connection ~ 8750 3650
-Text Label 8300 3650 0    50   ~ 0
-GPIO12
-Text Label 9550 3550 0    50   ~ 0
-+5V
 NoConn ~ 4550 5800
 NoConn ~ 800  6350
 NoConn ~ 800  6250
@@ -4561,33 +4481,12 @@ NoConn ~ 800  5950
 NoConn ~ 800  5850
 NoConn ~ 800  5750
 NoConn ~ 800  5650
-Text Label 9450 4050 0    50   ~ 0
-GPIO4_DAT
-Text Label 9450 4150 0    50   ~ 0
-GPIO5_CLK
-Wire Wire Line
-	9450 4050 9850 4050
-Wire Wire Line
-	9450 4150 9850 4150
-$Comp
-L power:GND #PWR0108
-U 1 1 5F2E7337
-P 9500 4250
-F 0 "#PWR0108" H 9500 4000 50  0001 C CNN
-F 1 "GND" H 9505 4077 50  0000 C CNN
-F 2 "" H 9500 4250 50  0001 C CNN
-F 3 "" H 9500 4250 50  0001 C CNN
-	1    9500 4250
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	6000 4950 6400 4950
 Connection ~ 6000 4950
 Wire Wire Line
 	6000 4950 6000 5150
 Text Label 6400 4950 2    50   ~ 0
-VI2C
-Text Label 9450 3950 0    50   ~ 0
 VI2C
 Wire Notes Line
 	10100 2550 11050 2550
@@ -4635,17 +4534,6 @@ Connection ~ 6600 2150
 Connection ~ 7250 3050
 Wire Wire Line
 	7250 3050 7250 3200
-$Comp
-L Relay:FINDER-44.62 K1
-U 1 1 5F40BA32
-P 7650 2600
-F 0 "K1" H 8280 2646 50  0000 L CNN
-F 1 "FINDER-44.62" H 7700 2200 50  0000 L CNN
-F 2 "Relay_THT:Relay_DPDT_Finder_40.52" H 9000 2570 50  0001 C CNN
-F 3 "http://gfinder.findernet.com/assets/Series/359/S44EN.pdf" H 7450 2600 50  0001 C CNN
-	1    7650 2600
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	8050 2900 8050 2950
 Wire Wire Line
@@ -4667,23 +4555,17 @@ Wire Wire Line
 Connection ~ 7750 2200
 Wire Wire Line
 	7750 2200 7750 1900
-Wire Wire Line
-	9850 3850 9250 3850
-Wire Wire Line
-	9250 3850 9250 4000
-Wire Wire Line
-	9250 4000 9150 4000
-Text Label 8750 4000 0    50   ~ 0
+Text Label 8750 3750 0    50   ~ 0
 SW_Reserved
 $Comp
 L power:GND #PWR01
 U 1 1 5F2EE7EB
-P 8750 5550
-F 0 "#PWR01" H 8750 5300 50  0001 C CNN
-F 1 "GND" H 8755 5377 50  0000 C CNN
-F 2 "" H 8750 5550 50  0001 C CNN
-F 3 "" H 8750 5550 50  0001 C CNN
-	1    8750 5550
+P 8750 5200
+F 0 "#PWR01" H 8750 4950 50  0001 C CNN
+F 1 "GND" H 8755 5027 50  0000 C CNN
+F 2 "" H 8750 5200 50  0001 C CNN
+F 3 "" H 8750 5200 50  0001 C CNN
+	1    8750 5200
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -4695,16 +4577,12 @@ Wire Wire Line
 	8750 4800 8750 4700
 Wire Wire Line
 	8350 4800 8750 4800
-Wire Wire Line
-	8750 5500 8750 5550
-Wire Wire Line
-	8750 4000 8750 4400
 Text Label 8350 4800 0    50   ~ 0
 GPIO13
 Text Notes 8800 4400 0    50   ~ 0
-0-29V
+5V
 Text Notes 8300 4900 0    50   ~ 0
-0-3,13V
+2.9V
 $Comp
 L Device:LED_Small D5
 U 1 1 5F33C799
@@ -4871,33 +4749,6 @@ Wire Wire Line
 Connection ~ 1650 900 
 Wire Wire Line
 	2200 900  2200 950 
-$Comp
-L Device:Varistor RV4
-U 1 1 5F4C36C4
-P 9150 4200
-F 0 "RV4" H 9253 4246 50  0000 L CNN
-F 1 "24V" H 9253 4155 50  0000 L CNN
-F 2 "Varistor:RV_Disc_D7mm_W3.4mm_P5mm" V 9080 4200 50  0001 C CNN
-F 3 "~" H 9150 4200 50  0001 C CNN
-	1    9150 4200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9150 4000 9150 4050
-Connection ~ 9150 4000
-Wire Wire Line
-	9150 4000 8750 4000
-$Comp
-L power:GND #PWR031
-U 1 1 5F4D443C
-P 9150 4350
-F 0 "#PWR031" H 9150 4100 50  0001 C CNN
-F 1 "GND" H 9155 4177 50  0000 C CNN
-F 2 "" H 9150 4350 50  0001 C CNN
-F 3 "" H 9150 4350 50  0001 C CNN
-	1    9150 4350
-	1    0    0    -1  
-$EndComp
 Text Label 3950 6400 0    50   ~ 0
 GPIO13
 Wire Wire Line
@@ -4931,9 +4782,9 @@ Wire Notes Line
 Wire Notes Line
 	10150 3850 10300 3850
 Wire Notes Line
-	10150 3350 10500 3350
+	10150 3550 10500 3550
 Wire Notes Line
-	10500 3350 10500 3100
+	10500 3550 10500 3100
 Text Notes 10950 3550 1    50   ~ 0
 Level 0-5V
 Wire Notes Line
@@ -5054,17 +4905,6 @@ GPIO2
 Text Label 5650 6050 0    50   ~ 0
 GPIO16
 $Comp
-L Device:R R13
-U 1 1 5F2EE7F6
-P 8750 5350
-F 0 "R13" H 8820 5396 50  0000 L CNN
-F 1 "1K" H 8820 5305 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P12.70mm_Horizontal" V 8680 5350 50  0001 C CNN
-F 3 "~" H 8750 5350 50  0001 C CNN
-	1    8750 5350
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R R12
 U 1 1 5F2EE7E5
 P 8750 5000
@@ -5080,7 +4920,7 @@ L Device:R R11
 U 1 1 5F2EE7DF
 P 8750 4550
 F 0 "R11" H 8820 4596 50  0000 L CNN
-F 1 "47K" H 8820 4505 50  0000 L CNN
+F 1 "3K3" H 8820 4505 50  0000 L CNN
 F 2 "Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P12.70mm_Horizontal" V 8680 4550 50  0001 C CNN
 F 3 "~" H 8750 4550 50  0001 C CNN
 	1    8750 4550
@@ -5150,16 +4990,44 @@ $EndComp
 $Comp
 L power:+5V #PWR0105
 U 1 1 609B8C6F
-P 9550 3750
-F 0 "#PWR0105" H 9550 3600 50  0001 C CNN
-F 1 "+5V" V 9565 3878 50  0000 L CNN
-F 2 "" H 9550 3750 50  0001 C CNN
-F 3 "" H 9550 3750 50  0001 C CNN
-	1    9550 3750
+P 9550 3850
+F 0 "#PWR0105" H 9550 3700 50  0001 C CNN
+F 1 "+5V" V 9565 3978 50  0000 L CNN
+F 2 "" H 9550 3850 50  0001 C CNN
+F 3 "" H 9550 3850 50  0001 C CNN
+	1    9550 3850
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	9850 3750 9550 3750
+	9850 3850 9550 3850
+$Comp
+L Relay:G5V-2 K1
+U 1 1 608ECD9D
+P 7650 2600
+F 0 "K1" H 8280 2646 50  0000 L CNN
+F 1 "G5V-2" H 8280 2555 50  0000 L CNN
+F 2 "Relay_THT:Relay_DPDT_Omron_G5V-2" H 8300 2550 50  0001 L CNN
+F 3 "http://omronfs.omron.com/en_US/ecb/products/pdf/en-g5v_2.pdf" H 7450 2600 50  0001 C CNN
+	1    7650 2600
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	8650 3350 9350 3350
+	9500 3650 9850 3650
+Wire Wire Line
+	9400 3550 9850 3550
+Wire Wire Line
+	8750 3750 8750 4400
+Wire Wire Line
+	8750 3750 9850 3750
+$Comp
+L Connector_Generic:Conn_01x06 J4
+U 1 1 6093D5B8
+P 10050 3750
+F 0 "J4" H 10000 4150 50  0000 L CNN
+F 1 "Conn_01x06" H 10000 4050 50  0000 L CNN
+F 2 "Connector_Phoenix_MSTB:PhoenixContact_MSTBA_2,5_6-G-5,08_1x06_P5.08mm_Horizontal" H 10050 3750 50  0001 C CNN
+F 3 "~" H 10050 3750 50  0001 C CNN
+	1    10050 3750
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
