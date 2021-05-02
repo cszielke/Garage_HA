@@ -50,6 +50,7 @@ char mqtt_SwDoor_topic[44];
 char mqtt_SW_Reserved_topic[44];
 char mqtt_REL_Door_topic[44];
 char mqtt_distance_topic[44];
+char mqtt_WIFI_RSSI_topic[44];
 char mqtt_SUB_REL_Door_topic[44];
 
 int val_swdoor = LOW;
@@ -66,7 +67,7 @@ int last_val_level = -1;  //Force sending initial status
 int last_val_distance = -1;
 
 int counter = 0; //Update MQTT from time to time...
-#define MaxSendInterval 120
+#define MaxSendInterval 30
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -105,7 +106,6 @@ void SubCallback(char* topic, byte* message, unsigned int length) {
   }
 }
 
-
 void setup() {
   pinMode(SW_RESERVED, INPUT);
   pinMode(SW_DOOR, INPUT);
@@ -131,7 +131,7 @@ void setup() {
   snprintf(mqtt_SW_Reserved_topic,sizeof(mqtt_SW_Reserved_topic),"%s/%s",mqtt_root_topic, "swreserved");
   snprintf(mqtt_REL_Door_topic,sizeof(mqtt_REL_Door_topic),"%s/%s",mqtt_root_topic, "reldoor");
   snprintf(mqtt_distance_topic,sizeof(mqtt_distance_topic),"%s/%s",mqtt_root_topic, "dist");
-  
+  snprintf(mqtt_WIFI_RSSI_topic,sizeof(mqtt_WIFI_RSSI_topic),"%s/%s",mqtt_root_topic, "wifirssi");
   snprintf(mqtt_SUB_REL_Door_topic,sizeof(mqtt_REL_Door_topic),"%s/%s",mqtt_root_topic, "reldoorout");
   Serial.print("Subscribing to Topic:");
   Serial.println(mqtt_SUB_REL_Door_topic);
@@ -244,6 +244,9 @@ void setup() {
 
   Serial.println("assigned ip");
   Serial.println(WiFi.localIP());
+  Serial.println("Signal strength");
+  Serial.println(WiFi.RSSI());
+
   client.setServer(mqtt_server, 1883);
   client.setCallback(SubCallback);
 
@@ -276,7 +279,7 @@ void setup() {
 void reconnect() {
   while (!client.connected()) {
     Serial.println("trying to connect to mqtt...");
-    if (client.connect("ESP8266Client")) {
+    if (client.connect("ESP8266Client_GHA")) {
       Serial.println("connected");
 
       client.subscribe(mqtt_SUB_REL_Door_topic);
@@ -290,6 +293,18 @@ void reconnect() {
 }
 
 char tmp[21];
+
+int32_t publish_WifiRssi(void)
+{
+  int32_t sig = WiFi.RSSI();
+  snprintf(tmp,sizeof(tmp),"%d",sig);
+  client.publish(mqtt_WIFI_RSSI_topic, tmp);
+
+  Serial.println("Signal strength");
+  Serial.println(WiFi.RSSI());
+
+  return sig;
+}
 
 void loop() {  
   if (!client.connected()) {
@@ -334,12 +349,16 @@ void loop() {
     if(val_swdoor == HIGH) client.publish(mqtt_SwDoor_topic, "HIGH");
     else client.publish(mqtt_SwDoor_topic, "LOW");
     last_val_swdoor = val_swdoor;
+
+    publish_WifiRssi();
   }
 
   if((val_swreserved != last_val_swreserved) || (counter >= MaxSendInterval)){
     if(val_swreserved == HIGH) client.publish(mqtt_SW_Reserved_topic, "HIGH");
     else client.publish(mqtt_SW_Reserved_topic, "LOW");
     last_val_swreserved = val_swreserved;
+
+    publish_WifiRssi();
   }
 
   //Switch Pump Relais off, if switch is turned High
@@ -352,6 +371,8 @@ void loop() {
     digitalWrite(REL_OPEN_DOOR,val_rel_open_door);
 
     last_val_rel_door = val_rel_open_door;
+
+    publish_WifiRssi();
   }
   Serial.print("Relais_Door_Open: ");Serial.println(val_rel_open_door);
   
@@ -360,6 +381,8 @@ void loop() {
     client.publish(mqtt_distance_topic, tmp);
 
     last_val_distance = val_distance;
+
+    publish_WifiRssi();
   }
   Serial.print("Distance: ");Serial.println(val_distance);
   
