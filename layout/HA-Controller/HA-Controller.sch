@@ -14,72 +14,6 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Mechanical:MountingHole H2
-U 1 1 5F26990A
-P 5400 6700
-F 0 "H2" H 5500 6746 50  0000 L CNN
-F 1 "MountingHole" H 5500 6655 50  0000 L CNN
-F 2 "MountingHole:MountingHole_4.3mm_M4_ISO14580" H 5400 6700 50  0001 C CNN
-F 3 "~" H 5400 6700 50  0001 C CNN
-	1    5400 6700
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H4
-U 1 1 5F26A081
-P 6100 6700
-F 0 "H4" H 6200 6746 50  0000 L CNN
-F 1 "MountingHole" H 6200 6655 50  0000 L CNN
-F 2 "MountingHole:MountingHole_4.3mm_M4_ISO14580" H 6100 6700 50  0001 C CNN
-F 3 "~" H 6100 6700 50  0001 C CNN
-	1    6100 6700
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H3
-U 1 1 5F26AEEB
-P 5400 7000
-F 0 "H3" H 5500 7046 50  0000 L CNN
-F 1 "MountingHole" H 5500 6955 50  0000 L CNN
-F 2 "MountingHole:MountingHole_4.3mm_M4_ISO14580" H 5400 7000 50  0001 C CNN
-F 3 "~" H 5400 7000 50  0001 C CNN
-	1    5400 7000
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H5
-U 1 1 5F26B346
-P 6100 7000
-F 0 "H5" H 6200 7046 50  0000 L CNN
-F 1 "MountingHole" H 6200 6955 50  0000 L CNN
-F 2 "MountingHole:MountingHole_4.3mm_M4_ISO14580" H 6100 7000 50  0001 C CNN
-F 3 "~" H 6100 7000 50  0001 C CNN
-	1    6100 7000
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H1
-U 1 1 5F26B8E7
-P 5350 7400
-F 0 "H1" H 5450 7446 50  0000 L CNN
-F 1 "MountingHole" H 5450 7355 50  0000 L CNN
-F 2 "MountingHole:MountingHole_4.3mm_M4_ISO14580" H 5350 7400 50  0001 C CNN
-F 3 "~" H 5350 7400 50  0001 C CNN
-	1    5350 7400
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H6
-U 1 1 5F26BDDC
-P 6100 7400
-F 0 "H6" H 6200 7446 50  0000 L CNN
-F 1 "MountingHole" H 6200 7355 50  0000 L CNN
-F 2 "MountingHole:MountingHole_4.3mm_M4_ISO14580" H 6100 7400 50  0001 C CNN
-F 3 "~" H 6100 7400 50  0001 C CNN
-	1    6100 7400
-	1    0    0    -1  
-$EndComp
-$Comp
 L Connector_Generic:Conn_01x06 J2
 U 1 1 5F272DC4
 P 10000 2350
@@ -90,8 +24,6 @@ F 3 "~" H 10000 2350 50  0001 C CNN
 	1    10000 2350
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	9800 2450 9400 2450
 Wire Wire Line
 	9800 2550 9400 2550
 Wire Wire Line
@@ -109,10 +41,8 @@ F 3 "" H 9400 3550 50  0001 C CNN
 	1    9400 3550
 	-1   0    0    1   
 $EndComp
-Text Label 9500 3650 0    50   ~ 0
+Text Label 8750 3650 0    50   ~ 0
 GPIO12
-Text Label 9400 2450 0    50   ~ 0
-K1-12
 Text Label 9400 2550 0    50   ~ 0
 K1-14
 $Bitmap
@@ -4260,13 +4190,13 @@ U 1 1 5F35100A
 P 6650 3400
 F 0 "R3" V 6443 3400 50  0000 C CNN
 F 1 "330" V 6534 3400 50  0000 C CNN
-F 2 "Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P12.70mm_Horizontal" V 6580 3400 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 6580 3400 50  0001 C CNN
 F 3 "~" H 6650 3400 50  0001 C CNN
 	1    6650 3400
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	6950 3400 6800 3400
+	6950 3400 6850 3400
 Text Label 6150 3400 0    50   ~ 0
 GPIO14
 Wire Wire Line
@@ -4282,15 +4212,11 @@ Wire Wire Line
 	7250 2150 7250 2100
 Connection ~ 7250 2150
 Wire Wire Line
-	7550 2300 7550 2250
-Wire Wire Line
 	7650 2900 7650 2950
 Text Label 7650 3250 1    50   ~ 0
 K1-11
 Text Label 9400 2650 0    50   ~ 0
 K1-11
-Text Label 7550 1900 3    50   ~ 0
-K1-12
 Wire Wire Line
 	7750 2300 7750 2200
 Text Label 7750 1900 3    50   ~ 0
@@ -4361,8 +4287,6 @@ F 3 "~" H 6000 4700 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	5750 4700 5700 4700
-Wire Wire Line
-	6000 4800 6000 4950
 $Comp
 L power:+5V #PWR018
 U 1 1 5F4F238D
@@ -4395,7 +4319,7 @@ U 1 1 5F4F9794
 P 5700 5000
 F 0 "R8" H 5630 4954 50  0000 R CNN
 F 1 "1K5" H 5630 5045 50  0000 R CNN
-F 2 "Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P12.70mm_Horizontal" V 5630 5000 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 5630 5000 50  0001 C CNN
 F 3 "~" H 5700 5000 50  0001 C CNN
 	1    5700 5000
 	-1   0    0    1   
@@ -4416,7 +4340,7 @@ U 1 1 5F50E2B9
 P 5400 5000
 F 0 "R7" H 5330 4954 50  0000 R CNN
 F 1 "1K5" H 5330 5045 50  0000 R CNN
-F 2 "Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P12.70mm_Horizontal" V 5330 5000 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 5330 5000 50  0001 C CNN
 F 3 "~" H 5400 5000 50  0001 C CNN
 	1    5400 5000
 	-1   0    0    1   
@@ -4481,19 +4405,12 @@ NoConn ~ 800  5950
 NoConn ~ 800  5850
 NoConn ~ 800  5750
 NoConn ~ 800  5650
-Wire Wire Line
-	6000 4950 6400 4950
-Connection ~ 6000 4950
-Wire Wire Line
-	6000 4950 6000 5150
-Text Label 6400 4950 2    50   ~ 0
+Text Label 6000 5050 1    50   ~ 0
 VI2C
 Wire Notes Line
-	10100 2550 11050 2550
+	10150 2500 11100 2500
 Wire Notes Line
-	10100 2650 11050 2650
-Text Notes 9250 2450 0    50   ~ 0
-NC
+	10150 2650 11100 2650
 Text Notes 9250 2550 0    50   ~ 0
 NO
 Text Notes 9250 2650 0    50   ~ 0
@@ -4515,7 +4432,7 @@ U 1 1 5F3B6AE2
 P 6700 3050
 F 0 "R10" H 6630 3004 50  0000 R CNN
 F 1 "1K5" H 6630 3095 50  0000 R CNN
-F 2 "Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P12.70mm_Horizontal" V 6630 3050 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 6630 3050 50  0001 C CNN
 F 3 "~" H 6700 3050 50  0001 C CNN
 	1    6700 3050
 	0    -1   -1   0   
@@ -4541,13 +4458,6 @@ Wire Wire Line
 Connection ~ 7650 2950
 Wire Wire Line
 	7650 2950 7650 3250
-Wire Wire Line
-	7550 2250 7950 2250
-Wire Wire Line
-	7950 2250 7950 2300
-Connection ~ 7550 2250
-Wire Wire Line
-	7550 2250 7550 1900
 Wire Wire Line
 	7750 2200 8150 2200
 Wire Wire Line
@@ -4600,7 +4510,7 @@ U 1 1 5F33C79F
 P 3600 900
 F 0 "R14" H 3530 854 50  0000 R CNN
 F 1 "470" H 3530 945 50  0000 R CNN
-F 2 "Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P12.70mm_Horizontal" V 3530 900 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 3530 900 50  0001 C CNN
 F 3 "~" H 3600 900 50  0001 C CNN
 	1    3600 900 
 	-1   0    0    1   
@@ -4757,9 +4667,9 @@ Wire Wire Line
 	4550 6200 3950 6200
 Text Label 3950 6300 0    50   ~ 0
 GPIO12
-Text Notes 10500 2550 0    50   ~ 0
+Text Notes 10150 2500 0    50   ~ 0
 Open Door
-Text Notes 10500 2650 0    50   ~ 0
+Text Notes 10150 2650 0    50   ~ 0
 Open Door
 Wire Notes Line
 	10150 3750 10250 3750
@@ -4893,7 +4803,7 @@ F 3 "" H 6400 6400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6550 5950 5650 5950
+	6550 5950 6350 5950
 Wire Wire Line
 	6550 6050 6400 6050
 Wire Wire Line
@@ -4910,7 +4820,7 @@ U 1 1 5F2EE7E5
 P 8750 5000
 F 0 "R12" H 8820 5046 50  0000 L CNN
 F 1 "4K7" H 8820 4955 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P12.70mm_Horizontal" V 8680 5000 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 8680 5000 50  0001 C CNN
 F 3 "~" H 8750 5000 50  0001 C CNN
 	1    8750 5000
 	1    0    0    -1  
@@ -4921,7 +4831,7 @@ U 1 1 5F2EE7DF
 P 8750 4550
 F 0 "R11" H 8820 4596 50  0000 L CNN
 F 1 "3K3" H 8820 4505 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P12.70mm_Horizontal" V 8680 4550 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 8680 4550 50  0001 C CNN
 F 3 "~" H 8750 4550 50  0001 C CNN
 	1    8750 4550
 	1    0    0    -1  
@@ -4932,7 +4842,7 @@ U 1 1 5F5EFA08
 P 6250 6050
 F 0 "R17" H 6320 6096 50  0000 L CNN
 F 1 "1K2" H 6320 6005 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P12.70mm_Horizontal" V 6180 6050 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 6180 6050 50  0001 C CNN
 F 3 "~" H 6250 6050 50  0001 C CNN
 	1    6250 6050
 	0    1    1    0   
@@ -4943,7 +4853,7 @@ U 1 1 5F5F0249
 P 5950 6200
 F 0 "R16" H 6020 6246 50  0000 L CNN
 F 1 "2K2" H 6020 6155 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P12.70mm_Horizontal" V 5880 6200 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 5880 6200 50  0001 C CNN
 F 3 "~" H 5950 6200 50  0001 C CNN
 	1    5950 6200
 	1    0    0    -1  
@@ -4961,13 +4871,13 @@ Wire Wire Line
 	6400 6350 6400 6400
 Connection ~ 6400 6350
 Wire Notes Line
-	10300 2400 10700 2400
+	10300 2400 10450 2400
 Text Notes 10250 2400 2    50   ~ 0
 PE
 Wire Notes Line
-	10300 2300 10600 2300
+	10300 2300 10450 2300
 Wire Notes Line
-	10300 2200 10500 2200
+	10300 2200 10450 2200
 Text Notes 10250 2300 2    50   ~ 0
 GND
 Text Notes 10250 2200 2    50   ~ 0
@@ -5012,7 +4922,7 @@ F 3 "http://omronfs.omron.com/en_US/ecb/products/pdf/en-g5v_2.pdf" H 7450 2600 5
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9500 3650 9850 3650
+	8750 3650 9450 3650
 Wire Wire Line
 	9400 3550 9850 3550
 Wire Wire Line
@@ -5030,4 +4940,297 @@ F 3 "~" H 10050 3750 50  0001 C CNN
 	1    10050 3750
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	9850 3950 8950 3950
+Text Label 8950 3950 0    50   ~ 0
+GPIO2
+Text Label 6400 6050 0    50   ~ 0
+Echo
+Wire Wire Line
+	9850 4050 8950 4050
+Text Label 8950 4050 0    50   ~ 0
+Echo
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 5F26B8E7
+P 5350 7400
+F 0 "H1" H 5450 7446 50  0000 L CNN
+F 1 "MountingHole" H 5450 7355 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4_ISO14580" H 5350 7400 50  0001 C CNN
+F 3 "~" H 5350 7400 50  0001 C CNN
+	1    5350 7400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 5F26A081
+P 5350 6750
+F 0 "H4" H 5450 6796 50  0000 L CNN
+F 1 "MountingHole" H 5450 6705 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4_ISO14580" H 5350 6750 50  0001 C CNN
+F 3 "~" H 5350 6750 50  0001 C CNN
+	1    5350 6750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 5F26AEEB
+P 5750 7100
+F 0 "H3" H 5850 7146 50  0000 L CNN
+F 1 "MountingHole" H 5850 7055 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4_ISO14580" H 5750 7100 50  0001 C CNN
+F 3 "~" H 5750 7100 50  0001 C CNN
+	1    5750 7100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 5F26990A
+P 6100 7400
+F 0 "H2" H 6200 7446 50  0000 L CNN
+F 1 "MountingHole" H 6200 7355 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4_ISO14580" H 6100 7400 50  0001 C CNN
+F 3 "~" H 6100 7400 50  0001 C CNN
+	1    6100 7400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H5
+U 1 1 5F26B346
+P 6100 6750
+F 0 "H5" H 6200 6796 50  0000 L CNN
+F 1 "MountingHole" H 6200 6705 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4_ISO14580" H 6100 6750 50  0001 C CNN
+F 3 "~" H 6100 6750 50  0001 C CNN
+	1    6100 6750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:BC547 Q1
+U 1 1 609E2FD6
+P 4950 3400
+F 0 "Q1" H 5141 3446 50  0000 L CNN
+F 1 "BC547" H 5141 3355 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 5150 3325 50  0001 L CIN
+F 3 "http://www.fairchildsemi.com/ds/BC/BC547.pdf" H 4950 3400 50  0001 L CNN
+	1    4950 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4148 D1
+U 1 1 609E2FDC
+P 4400 2600
+F 0 "D1" V 4354 2679 50  0000 L CNN
+F 1 "1N4148" V 4445 2679 50  0000 L CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 4400 2425 50  0001 C CNN
+F 3 "http://www.nxp.com/documents/data_sheet/1N4148_1N4448.pdf" H 4400 2600 50  0001 C CNN
+	1    4400 2600
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4400 2450 4400 2150
+Wire Wire Line
+	4400 2150 5050 2150
+Wire Wire Line
+	5050 2150 5050 2300
+Wire Wire Line
+	5050 2900 5050 2950
+$Comp
+L power:GND #PWR0106
+U 1 1 609E2FE6
+P 5050 3700
+F 0 "#PWR0106" H 5050 3450 50  0001 C CNN
+F 1 "GND" H 5055 3527 50  0000 C CNN
+F 2 "" H 5050 3700 50  0001 C CNN
+F 3 "" H 5050 3700 50  0001 C CNN
+	1    5050 3700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5050 3700 5050 3600
+$Comp
+L Device:R R1
+U 1 1 609E2FED
+P 4450 3400
+F 0 "R1" V 4243 3400 50  0000 C CNN
+F 1 "330" V 4334 3400 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 4380 3400 50  0001 C CNN
+F 3 "~" H 4450 3400 50  0001 C CNN
+	1    4450 3400
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4750 3400 4650 3400
+Wire Wire Line
+	3950 3400 4300 3400
+Wire Wire Line
+	4400 2750 4400 2950
+Wire Wire Line
+	4400 2950 5050 2950
+Connection ~ 5050 2950
+Wire Wire Line
+	5050 2950 5050 3050
+Wire Wire Line
+	5050 2150 5050 2100
+Connection ~ 5050 2150
+Wire Wire Line
+	5450 2900 5450 2950
+Text Label 5450 3250 1    50   ~ 0
+K2-11
+Wire Wire Line
+	5550 2300 5550 2200
+Text Label 5550 1900 3    50   ~ 0
+K2-14
+$Comp
+L Device:LED_Small D3
+U 1 1 609E3002
+P 4800 3050
+F 0 "D3" H 4800 2845 50  0000 C CNN
+F 1 "LED_Small" H 4800 2936 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" V 4800 3050 50  0001 C CNN
+F 3 "~" V 4800 3050 50  0001 C CNN
+	1    4800 3050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 609E3008
+P 4500 3050
+F 0 "R2" H 4430 3004 50  0000 R CNN
+F 1 "1K5" H 4430 3095 50  0000 R CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 4430 3050 50  0001 C CNN
+F 3 "~" H 4500 3050 50  0001 C CNN
+	1    4500 3050
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4350 3050 4300 3050
+Wire Wire Line
+	4300 3050 4300 2150
+Wire Wire Line
+	4650 3050 4700 3050
+Wire Wire Line
+	4900 3050 5050 3050
+Wire Wire Line
+	4300 2150 4400 2150
+Connection ~ 4400 2150
+Connection ~ 5050 3050
+Wire Wire Line
+	5050 3050 5050 3200
+Wire Wire Line
+	5850 2900 5850 2950
+Wire Wire Line
+	5850 2950 5450 2950
+Connection ~ 5450 2950
+Wire Wire Line
+	5450 2950 5450 3250
+Wire Wire Line
+	5550 2200 5950 2200
+Wire Wire Line
+	5950 2200 5950 2300
+Connection ~ 5550 2200
+Wire Wire Line
+	5550 2200 5550 1900
+$Comp
+L power:+5V #PWR0107
+U 1 1 609E3022
+P 5050 2100
+F 0 "#PWR0107" H 5050 1950 50  0001 C CNN
+F 1 "+5V" H 5065 2273 50  0000 C CNN
+F 2 "" H 5050 2100 50  0001 C CNN
+F 3 "" H 5050 2100 50  0001 C CNN
+	1    5050 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Relay:G5V-2 K2
+U 1 1 609E3028
+P 5450 2600
+F 0 "K2" H 6080 2646 50  0000 L CNN
+F 1 "G5V-2" H 6080 2555 50  0000 L CNN
+F 2 "Relay_THT:Relay_DPDT_Omron_G5V-2" H 6100 2550 50  0001 L CNN
+F 3 "http://omronfs.omron.com/en_US/ecb/products/pdf/en-g5v_2.pdf" H 5250 2600 50  0001 C CNN
+	1    5450 2600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4550 6500 3950 6500
+Text Label 3950 6500 0    50   ~ 0
+GPIO15
+Text Label 3950 3400 0    50   ~ 0
+GPIO15
+$Comp
+L Device:R R4
+U 1 1 609FEBC6
+P 4650 3550
+F 0 "R4" V 4443 3550 50  0000 C CNN
+F 1 "100K" V 4534 3550 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 4580 3550 50  0001 C CNN
+F 3 "~" H 4650 3550 50  0001 C CNN
+	1    4650 3550
+	-1   0    0    1   
+$EndComp
+Connection ~ 4650 3400
+Wire Wire Line
+	4650 3400 4600 3400
+Wire Wire Line
+	4650 3700 5050 3700
+Connection ~ 5050 3700
+$Comp
+L Device:R R5
+U 1 1 60A05B94
+P 6850 3550
+F 0 "R5" V 6643 3550 50  0000 C CNN
+F 1 "100K" V 6734 3550 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 6780 3550 50  0001 C CNN
+F 3 "~" H 6850 3550 50  0001 C CNN
+	1    6850 3550
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6850 3700 7250 3700
+Connection ~ 6850 3400
+Wire Wire Line
+	6850 3400 6800 3400
+Connection ~ 7250 3700
+Wire Wire Line
+	9800 2350 9400 2350
+Wire Wire Line
+	9800 2450 9400 2450
+Text Label 9400 2350 0    50   ~ 0
+K2-14
+Text Label 9400 2450 0    50   ~ 0
+K2-11
+Text Notes 9250 2350 0    50   ~ 0
+NO
+Text Notes 9250 2450 0    50   ~ 0
+C
+$Comp
+L Device:R R6
+U 1 1 60A31DA6
+P 6200 5950
+F 0 "R6" H 6270 5996 50  0000 L CNN
+F 1 "4R7" H 6270 5905 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 6130 5950 50  0001 C CNN
+F 3 "~" H 6200 5950 50  0001 C CNN
+	1    6200 5950
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	6050 5950 5650 5950
+$Comp
+L Device:R R9
+U 1 1 60A334E6
+P 9600 3650
+F 0 "R9" V 9550 3750 50  0000 L CNN
+F 1 "4R7" V 9550 3400 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 9530 3650 50  0001 C CNN
+F 3 "~" H 9600 3650 50  0001 C CNN
+	1    9600 3650
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	9750 3650 9850 3650
+Wire Wire Line
+	6000 4800 6000 5150
 $EndSCHEMATC
