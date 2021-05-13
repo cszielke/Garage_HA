@@ -72,6 +72,8 @@ int counter = 0; //Update MQTT from time to time...
 WiFiClient espClient;
 PubSubClient client(espClient);
 
+char tmp[21];
+
 void saveConfigCallback () {
   Serial.println("Should save config");
   shouldSaveConfig  = true;
@@ -95,14 +97,15 @@ void SubCallback(char* topic, byte* message, unsigned int length) {
   // Changes the output state according to the message
   if (String(topic) == mqtt_SUB_REL_Door_topic) { //"GarageHA/14087507/reldoorout"){ 
     Serial.print("Changing output to ");
-    if(messageTemp == "HIGH"){
+    if((messageTemp == "HIGH") || (messageTemp == "1")){
       Serial.println("Rel HIGH");
       digitalWrite(REL_OPEN_DOOR, HIGH);
     }
-    else if(messageTemp == "LOW"){
+    else if((messageTemp == "LOW") || (messageTemp == "0")){
       Serial.println("Rel LOW");
       digitalWrite(REL_OPEN_DOOR, LOW);
     }
+    delay(500);
   }
 }
 
@@ -292,8 +295,6 @@ void reconnect() {
   }
 }
 
-char tmp[21];
-
 int32_t publish_WifiRssi(void)
 {
   int32_t sig = WiFi.RSSI();
@@ -346,36 +347,43 @@ void loop() {
   Serial.print("val_swdoor: ");
   Serial.println(val_swdoor);
   if((val_swdoor != last_val_swdoor) || (counter >= MaxSendInterval)){
-    if(val_swdoor == HIGH) client.publish(mqtt_SwDoor_topic, "HIGH");
-    else client.publish(mqtt_SwDoor_topic, "LOW");
+    if(val_swdoor == HIGH) client.publish(mqtt_SwDoor_topic, "1");
+    else client.publish(mqtt_SwDoor_topic, "0");
     last_val_swdoor = val_swdoor;
 
     publish_WifiRssi();
   }
 
   if((val_swreserved != last_val_swreserved) || (counter >= MaxSendInterval)){
-    if(val_swreserved == HIGH) client.publish(mqtt_SW_Reserved_topic, "HIGH");
-    else client.publish(mqtt_SW_Reserved_topic, "LOW");
+    if(val_swreserved == HIGH) client.publish(mqtt_SW_Reserved_topic, "1");
+    else client.publish(mqtt_SW_Reserved_topic, "0");
     last_val_swreserved = val_swreserved;
 
     publish_WifiRssi();
   }
 
-  //Switch Pump Relais off, if switch is turned High
+  //Switch Door_Open_Rel off if it's on
   val_rel_open_door = digitalRead(REL_OPEN_DOOR);
 
   if((val_rel_open_door != last_val_rel_door) || (counter >= MaxSendInterval)){
-    if(val_rel_open_door == HIGH) client.publish(mqtt_REL_Door_topic, "HIGH");
-    else client.publish(mqtt_REL_Door_topic, "LOW");
-
-    digitalWrite(REL_OPEN_DOOR,val_rel_open_door);
+    if(val_rel_open_door == HIGH) client.publish(mqtt_REL_Door_topic, "1");
+    else client.publish(mqtt_REL_Door_topic, "0");
 
     last_val_rel_door = val_rel_open_door;
 
     publish_WifiRssi();
+
+    //Switch off again, if it was HIGH
+    if(val_rel_open_door == HIGH)
+    {
+      delay(500);
+      digitalWrite(REL_OPEN_DOOR, LOW);
+      client.publish(mqtt_SUB_REL_Door_topic, "0");
+    }
   }
   Serial.print("Relais_Door_Open: ");Serial.println(val_rel_open_door);
   
+
   if((val_distance != last_val_distance) || (counter >= MaxSendInterval)){
     snprintf(tmp,sizeof(tmp),"%d",val_distance);
     client.publish(mqtt_distance_topic, tmp);
